@@ -16,14 +16,123 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+bl_info = {
+    "name": "TORTOR_TOOLS",
+    "author": "Pierre Fontaine",
+    "version": (0, 1),
+    "blender": (2, 79, 0),
+    "location": "Tools",
+    "description": "Set of TORTOR_TOOLS for blender",
+    "warning": "experimental state",
+    "wiki_url": "",
+    "tracker_url": "",
+    "category": "Animation"}
+
+
+import bpy
+from bpy.types import Panel, Operator
 import random
+# import os
+# import csv
+# import string
+
+class generate_theme(bpy.types.Operator):
+    bl_label = "generate_Operator"
+    bl_idname = "generate.theme"
+    def execute(self,context):
+        bpy.ops.object.delete(use_global=False)
+        Emo_list = ['fear', 'anger', 'joy', 'sad', 'under speedy drugs', 'under slowly drugs', 'happy', 'laugh', 'curious', 'confused', 'embarrased', 'nervous', 'tired', 'shocked', 'disgusted']
+        Act_list = ['boxe', 'fight prepare', 'try to catch', 'jump', 'heavy object', 'run', 'walk', 'dance', 'play guitar', 'play drum', 'skateboarding', 'resting', 'drinking', 'meditate']
+        Env_list = ['ice place', 'forest', 'hill', 'desert', 'city street', 'on a boat', 'in a car', 'under the sea', 'on the moon', 'in a volcano', 'on a box', 'on bar counter']
+        oEmo_select = random.choice(Emo_list)
+        oAct_select = random.choice(Act_list)
+        oEnv_select = random.choice(Env_list)
+        bpy.ops.mesh.primitive_monkey_add()
+        otheme = oEmo_select + '_' + oAct_select + '_' + oEnv_select
+        bpy.context.object.name = otheme
+
+        self.report({'INFO'}, 'theme genereted!')
+        return {'FINISHED'}
+
+"""Creates a Panel in the toolshellf who generate the animation theme"""
+class TORTOR_anim(Panel):
+    bl_label = "animation_challenge"
+    bl_idname = "AnimGeneratorPannel"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'TOOLS'
+    bl_category = "TORTOR"
+    bl_contexte = 'objectmode'
 
 
-Emo_list = ['fear', 'anger', 'joy', 'sad', 'under speedy drugs', 'under slowly drugs', 'happy', 'laugh', 'curious', 'confused', 'embarrased', 'nervous', 'tired', 'shocked', 'disgusted']
-Act_list = ['boxe', 'fight prepare', 'try to catch', 'jump', 'heavy object', 'run', 'walk', 'dance', 'play guitar', 'play drum', 'skateboarding', 'resting', 'drinking', 'meditate']
-Env_list = ['ice place', 'forest', 'hill', 'desert', 'city street', 'on a boat', 'in a car', 'under the sea', 'on the moon', 'in a volcano', 'on a box', 'on bar counter']
-oEmo_select = random.choice(Emo_list)
-oAct_select = random.choice(Act_list)
-oEnv_select = random.choice(Env_list)
+    def draw(self, context):
+        layout = self.layout
 
-print('For the animation challenge:\n - the Choosen Emotion is {}\n - the Choosen Action is {}\n - the Choosen environement is {}'.format(oEmo_select, oAct_select, oEnv_select))
+        obj = context.object
+
+        row = layout.row()
+        row.label(text="Ready for it !", icon='WORLD_DATA')
+        row = layout.row()
+        row.operator("generate.theme", text = 'generate', icon = 'MOD_MASK')
+
+
+
+
+def register():
+    bpy.utils.register_class(generate_theme)
+    bpy.utils.register_class(TORTOR_anim)
+
+
+def unregister():
+    bpy.utils.unregister_class(generate_theme)
+    bpy.utils.unregister_class(TORTOR_anim)
+
+
+if __name__ == "__main__":
+    register()
+
+
+
+
+
+
+
+
+
+# print('For the animation challenge:\n - the Choosen Emotion is {}\n - the Choosen Action is {}\n - the Choosen environement is {}'.format(oEmo_select, oAct_select, oEnv_select))
+
+
+# read of the TORTOR_anim_challenge.csv in dir#
+# def get_file_path(filename):
+# 	cdirpath = os.getcws()
+# 	file_path = os.path.join(os.getcwd(), filename)
+# 	print(file_path)
+# 	return file_path
+
+# get_file_path('TORTOR_anim_challenge.csv')
+# open ('TORTOR_anim_challenge.csv','rU') as csvfile:
+
+
+# csv1 = csv.reader(data, delimiter = ',')
+
+
+# sort = sorted(csv1, key = operator.itemgetter(0))
+# 	# We need to append all 3 KEY Data to lists
+
+# for i in sort:
+# 	print(i)
+
+	
+
+	# for item in csv_data:
+	# 	print(item)
+
+
+# EmoData = []
+# ActionData = []
+
+# EnvData = []
+
+
+# Emo = random.sample(EmoData, k = 1)
+
+# print(Emo)
