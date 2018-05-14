@@ -16,6 +16,8 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+
+# ##### INFO #####
 bl_info = {
     "name": "TORTOR_TOOLS",
     "author": "Pierre Fontaine",
@@ -28,13 +30,28 @@ bl_info = {
     "tracker_url": "",
     "category": "Animation"}
 
-
+# ##### IMPORT LIB #####
 import bpy
 from bpy.types import Panel, Operator
 import random
 # import os
 # import csv
 # import string
+import logging
+'''
+ DEBUG: Detailed information, typically of interest only when diagnosing problems.
+
+ INFO: Confirmation that things are working as expected.
+
+ WARNING: An indication that something unexpected happened, or indicative of some problem in the near future (e.g. ‘disk space low’). The software is still working as expected.
+
+ ERROR: Due to a more serious problem, the software has not been able to perform some function.
+
+ CRITICAL: A serious error, indicating that the program itself may be unable to continue running.
+
+'''
+logging.basicConfig(filename='theme_local.log', level=logging.INFO,
+    format='%(asctime)s:%(levelname)s:%(message)s')
 
 class generate_theme(bpy.types.Operator):
     bl_label = "generate_Operator"
