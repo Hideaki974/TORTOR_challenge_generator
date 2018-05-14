@@ -53,6 +53,8 @@ import logging
 logging.basicConfig(filename='theme_local.log', level=logging.INFO,
     format='%(asctime)s:%(levelname)s:%(message)s')
 
+
+# ##### GENERATOR #####
 class generate_theme(bpy.types.Operator):
     bl_label = "generate_Operator"
     bl_idname = "generate.theme"
